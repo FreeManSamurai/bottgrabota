@@ -1,0 +1,50 @@
+from telegram import Update, ReplyKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+
+TOKEN = '7432930613:AAGLHJYZYf6qaskYvw9GA9N0BSL66s7sP0M'
+
+
+def start(update: Update, context: CallbackContext) -> None:
+    user = update.message.from_user
+    print(f"User {user.first_name} has started the bot.")
+    
+   
+    keyboard = [
+        ['Устроиться на работу прямо сейчас']
+    ]
+    
+   
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    
+   
+    update.message.reply_text(
+        'Добро пожаловать! Что бы начать работать, переходи по ссылке и регистрируйся на нашем официальном ресурсе, что бы начать работать уже сегодня ! .',
+        reply_markup=reply_markup
+    )
+
+def link(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text(
+        'Вот ваша ссылка для устройства на работу: https://reg.eda.yandex.ru/?advertisement_campaign=forms_for_agents&user_invite_code=daf2c7beab7e4ccdb0480eaac5b9b532&utm_content=blank ',
+        parse_mode='Markdown'
+    )
+
+
+def main() -> None:
+    updater = Updater(TOKEN)
+    
+    
+    dispatcher = updater.dispatcher
+    
+    
+    dispatcher.add_handler(CommandHandler('start', start))
+    
+    
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, link))
+    
+   
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()

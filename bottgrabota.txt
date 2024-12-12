@@ -2,7 +2,7 @@ from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 
-TOKEN = '7432930613:AAGLHJYZYf6qaskYvw9GA9N0BSL66s7sP0M'
+TOKEN = '7432930613:AAGLHJ'
 
 
 def start(update: Update, context: CallbackContext) -> None:
